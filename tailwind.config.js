@@ -36,6 +36,7 @@ module.exports = {
         'bgs-state-success': '#007b40',
         'bgs-state-error': '#f03d3e',
         'bgs-state-warn': '#f0a845',
+        jurrasic: '	#A020F0',
       },
       screens: {
         '3xl': '1830px',
