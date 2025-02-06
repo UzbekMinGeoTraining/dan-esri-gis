@@ -2,10 +2,22 @@
   <div>
     <button
       class="menu-button"
+      (click)="toggleSideNav()"
       mat-icon-button
       aria-label="menu icon"
     >
-      <mat-icon class="text-bgs-primary-stone">menu</mat-icon>
+      <mat-icon
+        class="text-bgs-primary-stone"
+        *ngIf="(sidenavService.sidenavStateObservable | async) === false"
+      >
+        menu
+      </mat-icon>
+      <mat-icon
+        class="text-bgs-primary-stone"
+        *ngIf="(sidenavService.sidenavStateObservable | async) === true"
+      >
+        menu_open
+      </mat-icon>
     </button>
   </div>
   <div class="w-40 left">

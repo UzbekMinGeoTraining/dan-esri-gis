@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { SideNavService } from '../services/side-nav.service';
 
 @Component({
   selector: 'app-header',
@@ -8,4 +9,10 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
-export class HeaderComponent {}
+export class HeaderComponent {
+  constructor(public sidenavService: SideNavService) {}
+
+  public toggleSideNav(): void {
+    this.sidenavService.toggle();
+  }
+}
