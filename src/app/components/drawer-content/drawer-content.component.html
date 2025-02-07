@@ -2,5 +2,10 @@
   <p class="text-lg font-bold text-bgs-primary-earth">Select Basemap:</p>
 </div>
 <div class="flex justify-center m-2">
-  <button mat-raised-button>Basemaps</button>
+  <button
+    mat-raised-button
+    (click)="toggleBottomSheet()"
+  >
+    Basemaps
+  </button>
 </div>

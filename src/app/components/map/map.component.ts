@@ -1,10 +1,12 @@
 /* eslint-disable object-curly-newline */
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import Basemap from '@arcgis/core/Basemap';
 import Map from '@arcgis/core/Map';
 import MapView from '@arcgis/core/views/MapView';
 import Compass from '@arcgis/core/widgets/Compass';
 import ScaleBar from '@arcgis/core/widgets/ScaleBar';
 import Search from '@arcgis/core/widgets/Search';
+import { BottomSheetService } from '../services/bottom-sheet.service';
 
 @Component({
   selector: 'app-map',
@@ -16,6 +18,8 @@ export class MapComponent implements OnInit, OnDestroy {
   @ViewChild('mapView', { static: true }) mapViewDiv: ElementRef | undefined;
 
   public mapView: any;
+
+  constructor(private readonly bottomSheetService: BottomSheetService) {}
 
   ngOnInit(): void {
     this.initializeMap();
@@ -40,6 +44,7 @@ export class MapComponent implements OnInit, OnDestroy {
     });
 
     this.initiliazeWidgets();
+    this.initializeSubscriptions();
   }
 
   initiliazeWidgets(): void {
@@ -67,5 +72,13 @@ export class MapComponent implements OnInit, OnDestroy {
     });
 
     this.mapView.ui.add(compass, 'top-left');
+  }
+
+  initializeSubscriptions(): void {
+    this.bottomSheetService.selectedBasemapObs.subscribe((basemap: Basemap) => {
+      if (this.mapView) {
+        this.mapView.map.basemap = basemap;
+      }
+    });
   }
 }

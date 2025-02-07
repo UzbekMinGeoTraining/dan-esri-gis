@@ -1,0 +1,37 @@
+<div class="sticky top-0 z-10 flex flex-col w-full">
+  <span class="w-full h-2"></span>
+  <div class="flex justify-between h-10">
+    <span class="flex items-center w-4/5 h-10 pl-4 text-lg font-semibold text-bgs-primary-earth">
+      {{ null !== title ? title : '' }}
+    </span>
+    <!-- Allow the close button to be hidden if want to control the flow e.g. force user action -->
+    <button
+      *ngIf="closeDefault"
+      mat-flat-button
+      (click)="close()"
+    >
+      <mat-icon
+        aria-hidden="false"
+        aria-label="close button"
+      >
+        close
+      </mat-icon>
+    </button>
+    <!-- Custom close functionality to trigger map graphic removal -->
+    <button
+      *ngIf="closeMarker"
+      mat-flat-button
+      (click)="closeMarkerSheet()"
+    >
+      <mat-icon
+        aria-hidden="false"
+        aria-label="close button"
+      >
+        close
+      </mat-icon>
+    </button>
+  </div>
+</div>
+<div>
+  <ng-content></ng-content>
+</div>
