@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatListModule } from '@angular/material/list';
@@ -25,6 +26,7 @@ export class BasemapsComponent implements OnInit {
         this.basemapCollection = loadedBasemaps; // Assign the loaded basemaps to the array
       })
       .catch((error) => {
+        // eslint-disable-next-line no-console
         console.error('Error loading basemaps:', error);
       });
   }

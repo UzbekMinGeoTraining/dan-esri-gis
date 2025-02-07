@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import { Injectable } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import Basemap from '@arcgis/core/Basemap';

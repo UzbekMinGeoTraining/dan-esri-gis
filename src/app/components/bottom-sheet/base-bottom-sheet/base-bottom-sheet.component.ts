@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
