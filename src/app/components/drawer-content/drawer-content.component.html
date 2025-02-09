@@ -1,4 +1,19 @@
 <div class="flex m-2">
+  <p class="text-lg font-bold text-bgs-primary-earth">View Type:</p>
+</div>
+<div class="flex justify-center m-2">
+  <mat-button-toggle-group
+    [(value)]="viewTypeToggle"
+    name="fontStyle"
+    aria-label="Font Style"
+    (change)="toggleViewType($event.value)"
+  >
+    <mat-button-toggle value="{{ VIEW_TYPE.MAP_VIEW }}">Map View</mat-button-toggle>
+    <mat-button-toggle value="{{ VIEW_TYPE.SCENE_VIEW }}">Scene View</mat-button-toggle>
+  </mat-button-toggle-group>
+</div>
+
+<div class="flex m-2">
   <p class="text-lg font-bold text-bgs-primary-earth">Select Basemap:</p>
 </div>
 <div class="flex justify-center m-2">

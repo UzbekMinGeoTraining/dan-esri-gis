@@ -3,10 +3,12 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/co
 import Basemap from '@arcgis/core/Basemap';
 import Map from '@arcgis/core/Map';
 import MapView from '@arcgis/core/views/MapView';
+import SceneView from '@arcgis/core/views/SceneView';
 import Compass from '@arcgis/core/widgets/Compass';
-import ScaleBar from '@arcgis/core/widgets/ScaleBar';
 import Search from '@arcgis/core/widgets/Search';
+import { ViewType } from '../enums/view-type.enum';
 import { BottomSheetService } from '../services/bottom-sheet.service';
+import { SidenavContentService } from '../services/side-nav-content.service';
 
 @Component({
   selector: 'app-map',
@@ -17,12 +19,23 @@ import { BottomSheetService } from '../services/bottom-sheet.service';
 export class MapComponent implements OnInit, OnDestroy {
   @ViewChild('mapView', { static: true }) mapViewDiv: ElementRef | undefined;
 
-  public mapView: any;
+  // public mapView: any;
 
-  constructor(private readonly bottomSheetService: BottomSheetService) {}
+  private mapView!: MapView | SceneView;
+
+  private map!: Map;
+
+  constructor(
+    private readonly bottomSheetService: BottomSheetService,
+    private readonly sideNavContentService: SidenavContentService,
+  ) {}
 
   ngOnInit(): void {
-    this.initializeMap();
+    this.map = new Map({
+      basemap: this.bottomSheetService.getSelectedBasemap(), // Default basemap
+    });
+
+    this.initializeSubscriptions();
   }
 
   ngOnDestroy(): void {
@@ -31,21 +44,41 @@ export class MapComponent implements OnInit, OnDestroy {
     }
   }
 
-  initializeMap(): void {
-    const webMap = new Map({
-      basemap: 'satellite', // Change the basemap as needed
-    });
-
+  private initializeMapView(): void {
     this.mapView = new MapView({
-      container: this.mapViewDiv?.nativeElement, // Reference the map container in the template
-      map: webMap,
-      center: [64, 41], // Set the map center (longitude, latitude)
-      zoom: 6, // Set zoom level
+      container: this.mapViewDiv?.nativeElement,
+      map: this.map,
+      center: [64, 41],
+      zoom: 6,
     });
-
     this.initiliazeWidgets();
-    this.initializeSubscriptions();
   }
+
+  private initializeSceneView(): void {
+    this.mapView = new SceneView({
+      container: this.mapViewDiv?.nativeElement,
+      map: this.map,
+      center: [64, 41],
+      zoom: 6,
+    });
+    this.initiliazeWidgets();
+  }
+
+  // initializeMap(): void {
+  //   const webMap = new Map({
+  //     basemap: 'satellite', // Change the basemap as needed
+  //   });
+
+  //   this.mapView = new MapView({
+  //     container: this.mapViewDiv?.nativeElement, // Reference the map container in the template
+  //     map: webMap,
+  //     center: [64, 41], // Set the map center (longitude, latitude)
+  //     zoom: 6, // Set zoom level
+  //   });
+
+  //   this.initiliazeWidgets();
+  //   this.initializeSubscriptions();
+  // }
 
   initiliazeWidgets(): void {
     const searchWidget = new Search({
@@ -58,13 +91,13 @@ export class MapComponent implements OnInit, OnDestroy {
     });
 
     // Create the ScaleBar widget
-    const scaleBar = new ScaleBar({
-      view: this.mapView,
-      unit: 'dual', // Options: "metric", "imperial", or "dual"
-    });
+    // const scaleBar = new ScaleBar({
+    //   view: this.mapView,
+    //   unit: 'dual', // Options: "metric", "imperial", or "dual"
+    // });
 
     // Add the ScaleBar widget to the view
-    this.mapView.ui.add(scaleBar, 'bottom-left');
+    // this.mapView.ui.add(scaleBar, 'bottom-left');
 
     // Create the Compass widget
     const compass = new Compass({
@@ -78,6 +111,14 @@ export class MapComponent implements OnInit, OnDestroy {
     this.bottomSheetService.selectedBasemapObs.subscribe((basemap: Basemap) => {
       if (this.mapView) {
         this.mapView.map.basemap = basemap;
+      }
+    });
+
+    this.sideNavContentService.mapViewObs.subscribe((viewType: ViewType) => {
+      if (viewType === ViewType.MAP_VIEW) {
+        this.initializeMapView();
+      } else if (viewType === ViewType.SCENE_VIEW) {
+        this.initializeSceneView();
       }
     });
   }
