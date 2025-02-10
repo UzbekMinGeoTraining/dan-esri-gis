@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { LayerType } from '../enums/layer-type.enum';
 import { ViewType } from '../enums/view-type.enum';
 
 @Injectable({
@@ -8,8 +9,11 @@ import { ViewType } from '../enums/view-type.enum';
 export class SidenavContentService {
   private readonly mapViewSrc = new BehaviorSubject<ViewType>(ViewType.MAP_VIEW);
 
-  // eslint-disable-next-line @typescript-eslint/member-ordering
   public mapViewObs = this.mapViewSrc.asObservable();
+
+  private readonly toggleLayerSrc = new Subject<Array<LayerType>>();
+
+  public toggleLayerObs = this.toggleLayerSrc.asObservable();
 
   public setMapViewType(view: ViewType): void {
     this.mapViewSrc.next(view);
@@ -18,4 +22,13 @@ export class SidenavContentService {
   public getMapViewType(): ViewType {
     return this.mapViewSrc.getValue();
   }
+
+  public toggleLayer(layers: Array<LayerType>): void {
+    this.toggleLayerSrc.next(layers);
+  }
 }
+
+// export interface Layer {
+//   layer: LayerType;
+//   active: boolean;
+// }

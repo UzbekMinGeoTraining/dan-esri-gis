@@ -1,0 +1,5 @@
+export enum LayerType {
+  PUMPING_STATIONS = 'PUMPING_STATIONS',
+  RESERVOIRS = 'RESERVOIRS',
+  CANALS = 'CANALS',
+}

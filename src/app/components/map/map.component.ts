@@ -1,13 +1,16 @@
 /* eslint-disable object-curly-newline */
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import Basemap from '@arcgis/core/Basemap';
+import GeoJSONLayer from '@arcgis/core/layers/GeoJSONLayer';
 import Map from '@arcgis/core/Map';
 import MapView from '@arcgis/core/views/MapView';
 import SceneView from '@arcgis/core/views/SceneView';
 import Compass from '@arcgis/core/widgets/Compass';
 import Search from '@arcgis/core/widgets/Search';
+import { LayerType } from '../enums/layer-type.enum';
 import { ViewType } from '../enums/view-type.enum';
 import { BottomSheetService } from '../services/bottom-sheet.service';
+import { DataService } from '../services/data.service';
 import { SidenavContentService } from '../services/side-nav-content.service';
 
 @Component({
@@ -25,9 +28,16 @@ export class MapComponent implements OnInit, OnDestroy {
 
   private map!: Map;
 
+  private reservoirs!: GeoJSONLayer;
+
+  private canals!: GeoJSONLayer;
+
+  private pumpingStations!: GeoJSONLayer;
+
   constructor(
     private readonly bottomSheetService: BottomSheetService,
     private readonly sideNavContentService: SidenavContentService,
+    private readonly dataService: DataService,
   ) {}
 
   ngOnInit(): void {
@@ -51,7 +61,8 @@ export class MapComponent implements OnInit, OnDestroy {
       center: [64, 41],
       zoom: 6,
     });
-    this.initiliazeWidgets();
+    this.initialiazeWidgets();
+    this.initilizeData();
   }
 
   private initializeSceneView(): void {
@@ -61,26 +72,11 @@ export class MapComponent implements OnInit, OnDestroy {
       center: [64, 41],
       zoom: 6,
     });
-    this.initiliazeWidgets();
+    this.initialiazeWidgets();
+    this.initilizeData();
   }
 
-  // initializeMap(): void {
-  //   const webMap = new Map({
-  //     basemap: 'satellite', // Change the basemap as needed
-  //   });
-
-  //   this.mapView = new MapView({
-  //     container: this.mapViewDiv?.nativeElement, // Reference the map container in the template
-  //     map: webMap,
-  //     center: [64, 41], // Set the map center (longitude, latitude)
-  //     zoom: 6, // Set zoom level
-  //   });
-
-  //   this.initiliazeWidgets();
-  //   this.initializeSubscriptions();
-  // }
-
-  initiliazeWidgets(): void {
+  private initialiazeWidgets(): void {
     const searchWidget = new Search({
       view: this.mapView,
     });
@@ -107,7 +103,7 @@ export class MapComponent implements OnInit, OnDestroy {
     this.mapView.ui.add(compass, 'top-left');
   }
 
-  initializeSubscriptions(): void {
+  private initializeSubscriptions(): void {
     this.bottomSheetService.selectedBasemapObs.subscribe((basemap: Basemap) => {
       if (this.mapView) {
         this.mapView.map.basemap = basemap;
@@ -121,5 +117,18 @@ export class MapComponent implements OnInit, OnDestroy {
         this.initializeSceneView();
       }
     });
+
+    this.sideNavContentService.toggleLayerObs.subscribe((layers: Array<LayerType>) => {
+      this.pumpingStations.visible = layers.includes(LayerType.PUMPING_STATIONS);
+      this.canals.visible = layers.includes(LayerType.CANALS);
+      this.reservoirs.visible = layers.includes(LayerType.RESERVOIRS);
+    });
+  }
+
+  private initilizeData() {
+    this.pumpingStations = this.dataService.initilizePumpingStationData();
+    this.reservoirs = this.dataService.initializeReservoirData();
+    this.canals = this.dataService.initializeCanalData();
+    this.map.addMany([this.pumpingStations, this.reservoirs, this.canals]);
   }
 }
