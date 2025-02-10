@@ -22,8 +22,6 @@ import { SidenavContentService } from '../services/side-nav-content.service';
 export class MapComponent implements OnInit, OnDestroy {
   @ViewChild('mapView', { static: true }) mapViewDiv: ElementRef | undefined;
 
-  // public mapView: any;
-
   private mapView!: MapView | SceneView;
 
   private map!: Map;
@@ -86,7 +84,6 @@ export class MapComponent implements OnInit, OnDestroy {
       position: 'top-right',
     });
 
-    // Create the ScaleBar widget
     // const scaleBar = new ScaleBar({
     //   view: this.mapView,
     //   unit: 'dual', // Options: "metric", "imperial", or "dual"
