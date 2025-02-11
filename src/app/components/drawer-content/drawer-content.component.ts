@@ -28,7 +28,6 @@ export class DrawerContentComponent {
   ) {
     this.viewTypeToggle = this.sideNavContentService.getMapViewType();
     this.activeLayers = this.sideNavContentService.getSelectedLayers();
-    console.debug(this.activeLayers);
   }
 
   public toggleBottomSheet(): void {
