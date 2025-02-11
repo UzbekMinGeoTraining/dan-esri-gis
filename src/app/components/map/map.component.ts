@@ -6,6 +6,7 @@ import Map from '@arcgis/core/Map';
 import MapView from '@arcgis/core/views/MapView';
 import SceneView from '@arcgis/core/views/SceneView';
 import Compass from '@arcgis/core/widgets/Compass';
+import Legend from '@arcgis/core/widgets/Legend';
 import Search from '@arcgis/core/widgets/Search';
 import { LayerType } from '../enums/layer-type.enum';
 import { ViewType } from '../enums/view-type.enum';
@@ -32,17 +33,22 @@ export class MapComponent implements OnInit, OnDestroy {
 
   private pumpingStations!: GeoJSONLayer;
 
+  private dataLoaded = false;
+
   constructor(
     private readonly bottomSheetService: BottomSheetService,
     private readonly sideNavContentService: SidenavContentService,
     private readonly dataService: DataService,
-  ) {}
+  ) {
+    // constructor called first
+  }
 
   ngOnInit(): void {
     this.map = new Map({
       basemap: this.bottomSheetService.getSelectedBasemap(), // Default basemap
+      ground: 'world-elevation',
     });
-
+    // ngOnInit called after constructor
     this.initializeSubscriptions();
   }
 
@@ -59,8 +65,6 @@ export class MapComponent implements OnInit, OnDestroy {
       center: [64, 41],
       zoom: 6,
     });
-    this.initialiazeWidgets();
-    this.initilizeData();
   }
 
   private initializeSceneView(): void {
@@ -70,8 +74,6 @@ export class MapComponent implements OnInit, OnDestroy {
       center: [64, 41],
       zoom: 6,
     });
-    this.initialiazeWidgets();
-    this.initilizeData();
   }
 
   private initialiazeWidgets(): void {
@@ -98,6 +100,13 @@ export class MapComponent implements OnInit, OnDestroy {
     });
 
     this.mapView.ui.add(compass, 'top-left');
+
+    const legend = new Legend({
+      view: this.mapView,
+    });
+    this.mapView.ui.add(legend, {
+      position: 'bottom-right',
+    });
   }
 
   private initializeSubscriptions(): void {
@@ -113,9 +122,14 @@ export class MapComponent implements OnInit, OnDestroy {
       } else if (viewType === ViewType.SCENE_VIEW) {
         this.initializeSceneView();
       }
+      this.initialiazeWidgets();
     });
 
     this.sideNavContentService.toggleLayerObs.subscribe((layers: Array<LayerType>) => {
+      // Load data if not already loaded;
+      if (!this.dataLoaded) {
+        this.initilizeData();
+      }
       this.pumpingStations.visible = layers.includes(LayerType.PUMPING_STATIONS);
       this.canals.visible = layers.includes(LayerType.CANALS);
       this.reservoirs.visible = layers.includes(LayerType.RESERVOIRS);
@@ -123,6 +137,7 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   private initilizeData() {
+    this.dataLoaded = true;
     this.pumpingStations = this.dataService.initilizePumpingStationData();
     this.reservoirs = this.dataService.initializeReservoirData();
     this.canals = this.dataService.initializeCanalData();

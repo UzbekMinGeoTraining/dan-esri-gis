@@ -20,11 +20,15 @@ export class DrawerContentComponent {
 
   public LAYER_TYPE = LayerType;
 
+  public activeLayers: Array<LayerType>;
+
   constructor(
     private readonly bottomSheetService: BottomSheetService,
     private readonly sideNavContentService: SidenavContentService,
   ) {
     this.viewTypeToggle = this.sideNavContentService.getMapViewType();
+    this.activeLayers = this.sideNavContentService.getSelectedLayers();
+    console.debug(this.activeLayers);
   }
 
   public toggleBottomSheet(): void {

@@ -24,19 +24,19 @@
   >
     <mat-chip-option
       value="{{ LAYER_TYPE.RESERVOIRS }}"
-      selected="true"
+      selected="{{ activeLayers.includes(LAYER_TYPE.RESERVOIRS) }}"
     >
       Reservoirs
     </mat-chip-option>
     <mat-chip-option
       value="{{ LAYER_TYPE.CANALS }}"
-      selected="true"
+      selected="{{ activeLayers.includes(LAYER_TYPE.CANALS) }}"
     >
       Canals
     </mat-chip-option>
     <mat-chip-option
       value="{{ LAYER_TYPE.PUMPING_STATIONS }}"
-      selected="true"
+      selected="{{ activeLayers.includes(LAYER_TYPE.PUMPING_STATIONS) }}"
     >
       Pumping Stations
     </mat-chip-option>
