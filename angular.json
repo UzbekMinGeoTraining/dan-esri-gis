@@ -7,7 +7,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "base-angular": {
+    "dan-esri-gis": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -21,7 +21,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/base-angular",
+            "outputPath": "dist/dan-esri-gis",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -63,10 +63,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "base-angular:build:production"
+              "buildTarget": "dan-esri-gis:build:production"
             },
             "development": {
-              "buildTarget": "base-angular:build:development"
+              "buildTarget": "dan-esri-gis:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -74,7 +74,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "base-angular:build"
+            "buildTarget": "dan-esri-gis:build"
           }
         },
         "test": {
