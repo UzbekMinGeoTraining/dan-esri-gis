@@ -1,0 +1,1 @@
+import{a as o}from"./chunk-523X5JOP.js";import{a as r}from"./chunk-B7GIKKEW.js";var t=class extends o{constructor(s,a){super(s,"mat4",r.Pass,(i,m,f)=>i.setUniformMatrix4fv(s,a(m,f)))}};export{t as a};

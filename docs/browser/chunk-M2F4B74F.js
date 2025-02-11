@@ -1,0 +1,1 @@
+import{a as i}from"./chunk-2WNCPIJC.js";import{a as c}from"./chunk-7X2HMUNN.js";import{a as n}from"./chunk-NDYVXEZ5.js";function j(t,e,a,r,l){return!(e==null||r==null||t.length<2)&&(o.x=t[0],o.y=t[1],o.z=t[2],o.spatialReference=e,c(o,a,r,l))}var o=i(0,0,0,n.WGS84);export{j as a};

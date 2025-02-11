@@ -1,0 +1,1 @@
+import{f as s}from"./chunk-4OZVVJHM.js";import{K as c}from"./chunk-GGZQ5GCM.js";var t=class{constructor(){this.uid=c()}},a=class extends t{constructor(h){super(),this.highlightGroupName=h,this.channel=s.Highlight}},r=class extends t{constructor(){super(...arguments),this.channel=s.MaskOccludee}};export{a,r as b};

@@ -1,0 +1,1 @@
+import{a as r}from"./chunk-AR3SF3CU.js";var s=class extends r{constructor(e,t,a,o,i,m){super(e.usedMemory,e.displayedFeatures,e.totalFeatures,e.maximumFeatures,e.nodes,e.core),this.storedFeatures=t,this.totalVertices=a,this.partial=o,this.mode=i,this.symbolComplexity=m}};export{s as a};

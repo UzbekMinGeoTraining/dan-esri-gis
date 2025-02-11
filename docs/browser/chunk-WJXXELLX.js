@@ -1,0 +1,1 @@
+import{z as r}from"./chunk-O2MTVLJU.js";import{c as i}from"./chunk-C73532AX.js";var s=i;function n(e){return"opened"in e?e.opened:e.open}function f(e){s(()=>{e.transitionEl&&r(e.transitionEl,e.openTransitionProp,()=>{n(e)?e.onBeforeOpen():e.onBeforeClose()},()=>{n(e)?e.onOpen():e.onClose()})})}export{f as a};

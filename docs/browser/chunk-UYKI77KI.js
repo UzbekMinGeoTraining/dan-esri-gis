@@ -1,0 +1,1 @@
+import{p as m}from"./chunk-AOA5JMXK.js";import{c}from"./chunk-6WKJD7BM.js";import{a as n}from"./chunk-PYQRTZNZ.js";import{m as a}from"./chunk-4DLSYLKE.js";function s(t,e,r,p){return t!=null&&(a(e,p)?(c(r,t),!0):(o[0]=t[0],o[1]=t[1],o[2]=0,!!m(o,e,0,o,p,0)&&(r[0]=o[0],r[1]=o[1],o[0]=t[2],o[1]=t[3],o[2]=0,!!m(o,e,0,o,p,0)&&(r[2]=o[0],r[3]=o[1],!0))))}var o=n();export{s as a};

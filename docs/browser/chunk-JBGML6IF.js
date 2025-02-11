@@ -1,0 +1,1 @@
+import{p as r}from"./chunk-WUAC4CFP.js";import{a as e}from"./chunk-7W6RATG7.js";var u=class{constructor(t){this.vertexBufferLayout=t}elementCount(t){return t.get(e.POSITION).indices.length}write(t,i,f,o,s,a){r(f,o,this.vertexBufferLayout,t,i,s,a)}};export{u as a};

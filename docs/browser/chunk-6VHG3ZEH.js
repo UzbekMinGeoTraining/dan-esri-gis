@@ -1,0 +1,1 @@
+import{a as s,f as i,g as o}from"./chunk-N3AGC3JB.js";var a=class extends i{constructor(e,r,n,c,d,h){super(e,r),this.layerUid=e,this.graphicUid=r,this.geometryId=n,this.triangleNr=c,this.baseBoundingSphere=d,this.numLodLevels=h}};function g(t){return o(t)&&t.intersector===s.LOD&&!!t.target}export{a,g as b};

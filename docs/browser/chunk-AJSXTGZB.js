@@ -1,0 +1,1 @@
+import{a as s}from"./chunk-25T3ULWN.js";var e=class extends s{constructor(o,n){super(o,n,"webmap")}};function c(r){return r!=null&&typeof r=="object"&&"declaredClass"in r&&r.declaredClass==="esri.WebMap"}var p=new e(2,32);export{c as a};

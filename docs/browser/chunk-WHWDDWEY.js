@@ -1,0 +1,1 @@
+import{a as n}from"./chunk-CYSP6FMY.js";import{i as e}from"./chunk-C73532AX.js";var t,i={childList:!0};function f(o){t||(t=n("mutation",c)),t.observe(o.el,i)}function l(o){t.unobserve(o.el)}function c(o){o.forEach(({target:r})=>{e(r)})}export{f as a,l as b};

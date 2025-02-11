@@ -1,0 +1,1 @@
+import{a as n}from"./chunk-C73532AX.js";var e=()=>n.isBrowser&&typeof navigator<"u"&&typeof window<"u"&&typeof location<"u"&&typeof document<"u"&&window.location===location&&window.document===document;export{e as a};
