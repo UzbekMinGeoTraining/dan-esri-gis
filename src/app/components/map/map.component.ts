@@ -3,8 +3,6 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/co
 import Basemap from '@arcgis/core/Basemap';
 import GeoJSONLayer from '@arcgis/core/layers/GeoJSONLayer';
 import Map from '@arcgis/core/Map';
-import SimpleRenderer from '@arcgis/core/renderers/SimpleRenderer';
-import SimpleFillSymbol from '@arcgis/core/symbols/SimpleFillSymbol';
 import MapView from '@arcgis/core/views/MapView';
 import SceneView from '@arcgis/core/views/SceneView';
 import Compass from '@arcgis/core/widgets/Compass';
@@ -142,33 +140,9 @@ export class MapComponent implements OnInit, OnDestroy {
 
   private initilizeData() {
     this.dataLoaded = true;
+    this.reservoirs = this.dataService.initializeReservoirData();
     this.pumpingStations = this.dataService.initilizePumpingStationData();
-    this.initializeReservoirData();
     this.canals = this.dataService.initializeCanalData();
-    setTimeout(() => {
-      this.map.addMany([this.pumpingStations, this.reservoirs, this.canals]);
-    }, 1000);
-  }
-
-  public initializeReservoirData(): void {
-    this.apiService
-      .getReservoirData()
-      .toPromise()
-      .then((geojsonData: any) => {
-        const blob = new Blob([JSON.stringify(geojsonData)], { type: 'application/json' });
-        const geojsonUrl = URL.createObjectURL(blob); // Convert data to a URL
-        this.reservoirs = new GeoJSONLayer({
-          url: geojsonUrl,
-          renderer: new SimpleRenderer({
-            symbol: new SimpleFillSymbol({
-              color: [0, 0, 255, 0.4], // Blue fill with 40% opacity
-              outline: {
-                color: [0, 0, 255],
-                width: 2,
-              },
-            }),
-          }),
-        });
-      });
+    this.map.addMany([this.pumpingStations, this.canals, this.reservoirs]);
   }
 }
