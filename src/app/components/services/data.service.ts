@@ -13,6 +13,7 @@ export class DataService {
   public initializeCanalData(): GeoJSONLayer {
     return new GeoJSONLayer({
       url: '../../assets/data/main-irrigation-canal.geojson',
+      title: 'Canals',
       renderer: new SimpleRenderer({
         symbol: new SimpleLineSymbol({
           color: 'green',
@@ -127,6 +128,7 @@ export class DataService {
   public initializeReservoirData(): GeoJSONLayer {
     return new GeoJSONLayer({
       url: '../../assets/data/reservoirs.geojson',
+      title: 'Reservoirs',
       renderer: new SimpleRenderer({
         symbol: new SimpleFillSymbol({
           color: [0, 0, 255, 0.4], // Blue fill with 40% opacity
@@ -344,6 +346,7 @@ export class DataService {
 `,
       },
       url: '../../assets/data/pumping-stations.geojson',
+      title: 'Pumping Stations',
       renderer: new SimpleRenderer({
         symbol: new SimpleMarkerSymbol({
           color: 'red',

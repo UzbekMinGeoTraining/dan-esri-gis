@@ -10,7 +10,6 @@ import Legend from '@arcgis/core/widgets/Legend';
 import Search from '@arcgis/core/widgets/Search';
 import { LayerType } from '../enums/layer-type.enum';
 import { ViewType } from '../enums/view-type.enum';
-import { ApiService } from '../services/api.service';
 import { BottomSheetService } from '../services/bottom-sheet.service';
 import { DataService } from '../services/data.service';
 import { SidenavContentService } from '../services/side-nav-content.service';
@@ -40,7 +39,6 @@ export class MapComponent implements OnInit, OnDestroy {
     private readonly bottomSheetService: BottomSheetService,
     private readonly sideNavContentService: SidenavContentService,
     private readonly dataService: DataService,
-    private readonly apiService: ApiService,
   ) {
     // constructor called first
   }
